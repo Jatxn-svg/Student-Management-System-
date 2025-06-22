@@ -1,0 +1,82 @@
+import java.util.*;
+public class Main {
+    
+    public static void main(String[] args) {
+        System.out.println("-----Welcome to Student Manager App-----");
+        ArrayList<Student> students = new ArrayList<>();
+        Scanner scan = new Scanner(System.in);
+            while (true) {
+            System.out.println("\n----- Student Manager App -----");
+            System.out.println("1. Add Student");
+            System.out.println("2. View All Students");
+            System.out.println("3. Delete Student by Roll No");
+            System.out.println("4. Edit Student by Roll No");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scan.nextInt();
+            scan.nextLine(); // flush
+                switch(choice){
+                        case 1:
+                       System.out.print("Enter student name: ");
+                    String name = scan.nextLine();
+                    System.out.print("Enter roll number: ");
+                    int roll = scan.nextInt();
+                    scan.nextLine();
+                    students.add(new Student(name, roll));
+                    System.out.println("Student added!");
+                    break; 
+case 2:
+                    if (students.isEmpty()) {
+                        System.out.println("❌ No students to display.");
+                    } else {
+                        System.out.println("--- All Students ---");
+                        for (Student s : students) {
+                            s.printThis();
+                            System.out.println();
+                        }
+                    }
+                    break;
+                        case 3:
+                    System.out.print("Enter roll number to delete: ");
+                    int rollToDelete = scan.nextInt();
+                    scan.nextLine();
+                    boolean foundDelete = false;
+                    Iterator<Student> iterator = students.iterator();
+                    while (iterator.hasNext()) {
+                        Student s = iterator.next();
+                        if (s.roll_No == rollToDelete) {
+                            iterator.remove();
+                            foundDelete = true;
+                            System.out.println("🗑️ Student deleted.");
+                            break;
+                        }
+                    }
+                    if (!foundDelete) {
+                        System.out.println(" Student not found.");
+                    }
+                    break;
+                        case 5:
+                    System.out.println(" Exiting... Thank you!");
+                    scan.close();
+                    return;
+                        default:
+                    System.out.println("Invalid choice, try again.");
+                }
+        }
+        scan.close();
+    }
+    static class Student{
+      public  String name;
+        public int roll_No;
+        // now we will create constructor
+       public  Student(String name, int roll_No){
+            this.name = name;
+           this.roll_No = roll_No;
+           
+        }
+        void printThis(){ //this is for printing
+                        System.out.println(" Name :"+name);
+            System.out.println("Roll No. :"+roll_No);
+        }
+    }
+}
